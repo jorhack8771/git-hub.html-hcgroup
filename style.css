@@ -654,11 +654,11 @@ svg.nav-ic{ display:none; }
 /* Formulario — encabezado y acento superior */
 .lead-form::before{ content:""; position:absolute; left:0; right:0; top:0; height:4px; background:linear-gradient(90deg, var(--hc-green), var(--hc-green-deep)); }
 .form-head{ margin-bottom:2px; display:flex; align-items:flex-start; gap:14px; }
-.form-head-badge{ flex:0 0 auto; width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,var(--hc-green-btn),var(--hc-green-btn-deep)); color:#fff; display:grid; place-items:center; box-shadow:0 6px 16px rgba(86,113,22,.25); }
-.form-head-badge .ic{ width:20px; height:20px; stroke-width:1.8; }
+.form-head-badge{ flex:0 0 auto; width:38px; height:38px; border-radius:11px; background:var(--mist); box-shadow:inset 0 2px 5px rgba(16,34,43,.10); color:var(--hc-green-ink); display:grid; place-items:center; }
+.form-head-badge .ic{ width:18px; height:18px; stroke-width:1.8; }
 .form-head strong{ display:block; font-family:var(--display); font-weight:800; font-size:1.25rem; color:var(--ink); }
 .form-head span{ font-size:.9rem; color:var(--gray-2); }
-.form-note-ic{ width:14px; height:14px; vertical-align:-2px; margin-right:5px; color:var(--hc-green-ink); stroke-width:1.8; }
+.form-note-ic{ display:inline-block; width:14px; height:14px; vertical-align:-2px; margin-right:5px; color:var(--hc-green-ink); stroke-width:1.8; }
 
 /* Selección de texto legible (también sobre el footer oscuro) */
 ::selection{ background:var(--hc-green); color:#0a2740; }
