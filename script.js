@@ -476,7 +476,7 @@
   function esc(str){ var d=document.createElement('div'); d.textContent=str; return d.innerHTML; }
   function renderReviews(){
     if (!reviewList) return;
-    reviewList.innerHTML = reviews.map(function(r){
+    reviewList.innerHTML = reviews.map(function(r, idx){
       var initial = (r.name || 'A')[0].toUpperCase();
       var avatar = '<div class="rc-avatar">' + initial + '</div>';
       var reply = r.reply ? (
@@ -489,6 +489,7 @@
         '<span class="rc-verified"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.9 1.3-1 3 1 3-2.9 1.3-1 3-3.1-.5L12 22l-2.4-2.1-3.1.5-1-3L2.6 15.5l1-3-1-3 2.9-1.3 1-3 3.1.5z" fill="currentColor" stroke="none"/><path d="M8.5 12l2.2 2.2 4.3-4.3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Verificada</span>'
       ) : '';
       return '<article class="review-card">' +
+        '<button type="button" class="rc-hide" data-hide-idx="' + idx + '" aria-label="Ocultar esta reseña" title="Ocultar esta reseña">&times;</button>' +
         '<div class="rc-quote-mark">&#8220;</div>' +
         '<div class="rc-stars">' + starsRow(r.rating) + '</div>' +
         '<p class="rc-text">' + esc(r.text) + '</p>' +
@@ -501,6 +502,19 @@
         reply +
       '</article>';
     }).join('');
+
+    // Botón "ocultar" de cada reseña: la quita de este navegador (no de un servidor,
+    // porque este sitio no tiene backend — cada visitante guarda su propia copia).
+    reviewList.querySelectorAll('.rc-hide').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var idx = parseInt(btn.getAttribute('data-hide-idx'), 10);
+        if (isNaN(idx)) return;
+        reviews.splice(idx, 1);
+        saveReviews();
+        renderReviews();
+        if (typeof rvBuildDots === 'function'){ rvBuildDots(); rvGo(0); }
+      });
+    });
 
     // resumen: promedio + conteo
     var avg = Math.round(reviews.reduce(function(a,r){ return a + r.rating; }, 0) / reviews.length);
@@ -541,6 +555,16 @@
     if (rvNext) rvNext.addEventListener('click', function(){ rvGo(rvIndex+1); });
   }
   rvBuildDots(); rvGo(0);
+
+  /* ---------- BOTÓN FILTRO: mostrar/ocultar el carrusel de reseñas ---------- */
+  var rvFilterToggle = document.getElementById('rvFilterToggle');
+  if (rvFilterToggle && rvCarousel){
+    rvFilterToggle.addEventListener('click', function(){
+      var hidden = rvCarousel.classList.toggle('is-hidden');
+      rvFilterToggle.setAttribute('aria-pressed', String(hidden));
+      rvFilterToggle.classList.toggle('active', hidden);
+    });
+  }
 
   // Selector de estrellas del formulario
   var pickedRating = 5;
