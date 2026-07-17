@@ -447,9 +447,19 @@
     }
     return [
     {
-      name: 'Raúl S.', verified: true, date: '1/12/2025', rating: 5,
-      text: 'Pedido llegó a tiempo y en buenas condiciones. Fecha de caducidad 2029.',
-      reply: '¡Gracias por tomarte el tiempo de compartir tu experiencia con nosotros! Nos alegra muchísimo saber que el producto cumplió con tus expectativas y que llegó en perfectas condiciones.'
+      name: 'Marlene G.', verified: true, date: '3/2/2026', rating: 5,
+      text: 'Excelente atención desde la primera llamada hasta la entrega. El equipo llegó completo, bien embalado y con todos los documentos en regla.',
+      reply: '¡Muchas gracias, Marlene! Nos alegra muchísimo saber que todo el proceso, desde el primer contacto hasta la entrega, cumplió con tus expectativas.'
+    },
+    {
+      name: 'Carlos M.', verified: true, date: '18/1/2026', rating: 5,
+      text: 'El soporte técnico fue muy rápido resolviendo una duda de instalación. Se nota que conocen bien los equipos que venden.',
+      reply: '¡Gracias, Carlos! Para nosotros es muy importante que el acompañamiento no termine en la entrega, así que valoramos mucho tu comentario.'
+    },
+    {
+      name: 'Fernanda R.', verified: true, date: '22/12/2025', rating: 4,
+      text: 'Buena variedad de equipos y precios competitivos. El tiempo de entrega fue un poco más largo de lo esperado, pero el resultado valió la pena.',
+      reply: 'Gracias por tu honestidad, Fernanda. Estamos trabajando para optimizar nuestros tiempos de entrega y seguir mejorando la experiencia de compra.'
     }
     ];
   })();
