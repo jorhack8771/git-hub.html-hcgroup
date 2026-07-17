@@ -511,6 +511,37 @@
   }
   renderReviews();
 
+  /* ---------- CARRUSEL DE RESEÑAS (una reseña a la vez) ---------- */
+  var rvCarousel = document.getElementById('reviewsCarousel');
+  var rvDotsWrap = document.getElementById('reviewDots');
+  var rvIndex = 0;
+  function rvSlides(){ return reviewList ? reviewList.querySelectorAll('.review-card') : []; }
+  function rvBuildDots(){
+    if (!rvDotsWrap) return;
+    rvDotsWrap.innerHTML = '';
+    rvSlides().forEach(function(_, k){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'car-dot';
+      b.setAttribute('aria-label', 'Ver reseña ' + (k+1));
+      b.addEventListener('click', function(){ rvGo(k); });
+      rvDotsWrap.appendChild(b);
+    });
+  }
+  function rvGo(n){
+    var s = rvSlides();
+    if (!s.length || !reviewList) return;
+    rvIndex = (n + s.length) % s.length;
+    reviewList.style.transform = 'translateX(' + (-rvIndex*100) + '%)';
+    if (rvDotsWrap) rvDotsWrap.querySelectorAll('button').forEach(function(d,k){ d.classList.toggle('on', k === rvIndex); });
+  }
+  if (rvCarousel){
+    var rvPrev = rvCarousel.querySelector('[data-rv-prev]');
+    var rvNext = rvCarousel.querySelector('[data-rv-next]');
+    if (rvPrev) rvPrev.addEventListener('click', function(){ rvGo(rvIndex-1); });
+    if (rvNext) rvNext.addEventListener('click', function(){ rvGo(rvIndex+1); });
+  }
+  rvBuildDots(); rvGo(0);
+
   // Selector de estrellas del formulario
   var pickedRating = 5;
   var starPick = document.getElementById('rvStarPick');
@@ -563,6 +594,7 @@
       reviews.unshift({ name: name, verified: true, date: fecha, rating: pickedRating, text: text, reply: null });
       saveReviews();
       renderReviews();
+      rvBuildDots(); rvGo(0);
       reviewForm.reset();
       pickedRating = 5; paintPick();
       reviewForm.classList.remove('open');
